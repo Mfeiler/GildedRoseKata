@@ -20,7 +20,7 @@ namespace csharpcore
                     {
                         if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
                         {
-                            Items[i].Quality = Items[i].Quality - 1;
+                            UpdateItemQuality(i,-1);
                         }
                     }
                 }
@@ -66,7 +66,7 @@ namespace csharpcore
                             {
                                 if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
                                 {
-                                    Items[i].Quality = Items[i].Quality - 1;
+                                    UpdateItemQuality(i,-1);
                                 }
                             }
                         }
@@ -84,6 +84,11 @@ namespace csharpcore
                     }
                 }
             }
+        }
+
+        private void UpdateItemQuality(int i, int changeVal)
+        {
+            Items[i].Quality = Items[i].Quality + changeVal;
         }
     }
 }

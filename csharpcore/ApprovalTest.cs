@@ -19,11 +19,21 @@ namespace csharpcore
             Program.Main(new string[] { });
             String output = fakeoutput.ToString();
 
-            var outputLines = output.Split('\n');
+            var outputLines = output.Split("\n");
             for(var i = 0; i<Math.Min(lines.Length, outputLines.Length); i++) 
             {
-                Assert.Equal(lines[i], outputLines[i]);
+                Assert.Equal(lines[i]+'\r' , outputLines[i]);
             }
+        }
+
+        [Fact]
+        public void ConjuredDepreciate2xSpeed()
+        {
+        //Given
+        
+        //When
+        
+        //Then
         }
     }
 }
