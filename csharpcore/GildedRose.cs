@@ -28,7 +28,7 @@ namespace csharpcore
                 {
                     if (Items[i].Quality < 50)
                     {
-                        Items[i].Quality = Items[i].Quality + 1;
+                        UpdateItemQuality(i,1);
 
                         if (Items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
                         {
@@ -36,7 +36,7 @@ namespace csharpcore
                             {
                                 if (Items[i].Quality < 50)
                                 {
-                                    Items[i].Quality = Items[i].Quality + 1;
+                                    UpdateItemQuality(i,1);
                                 }
                             }
 
@@ -44,7 +44,7 @@ namespace csharpcore
                             {
                                 if (Items[i].Quality < 50)
                                 {
-                                    Items[i].Quality = Items[i].Quality + 1;
+                                    UpdateItemQuality(i,1);
                                 }
                             }
                         }
@@ -72,14 +72,14 @@ namespace csharpcore
                         }
                         else
                         {
-                            Items[i].Quality = Items[i].Quality - Items[i].Quality;
+                            Items[i].Quality = 0;
                         }
                     }
                     else
                     {
                         if (Items[i].Quality < 50)
                         {
-                            Items[i].Quality = Items[i].Quality + 1;
+                            UpdateItemQuality(i,1);
                         }
                     }
                 }
