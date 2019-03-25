@@ -36,7 +36,7 @@ namespace csharpcore
                         {
                             if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
                             {
-                                WrappedItems[i]._UpdateItemQuality(-1);
+                                WrappedItems[i].UpdateItemQuality(-1);
                             }
                         }
                     }
@@ -49,7 +49,7 @@ namespace csharpcore
                 {
                     if (Items[i].Quality < 50)
                     {
-                        WrappedItems[i]._UpdateItemQuality(1);
+                        WrappedItems[i].UpdateItemQuality(1);
                     }
                 }
             }
@@ -62,10 +62,6 @@ namespace csharpcore
                 Items[i].SellIn = Items[i].SellIn - 1;
             }
         }
-        public void UpdateItemQuality(int i, int changeVal)
-        {
-            Items[i].Quality = Items[i].Quality + changeVal;
-        }
         private void ItemQualityDecrement(int i)
         {
             if (Items[i].Name != "Aged Brie" && Items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
@@ -74,7 +70,7 @@ namespace csharpcore
                 {
                     if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
                     {
-                        UpdateItemQuality(i, -1);
+                        WrappedItems[i].UpdateItemQuality(-1);
                     }
                 }
             }
@@ -82,7 +78,7 @@ namespace csharpcore
             {
                 if (Items[i].Quality < 50)
                 {
-                    UpdateItemQuality(i, 1);
+                    WrappedItems[i].UpdateItemQuality(1);
 
                     if (Items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
                     {
@@ -90,7 +86,7 @@ namespace csharpcore
                         {
                             if (Items[i].Quality < 50)
                             {
-                                UpdateItemQuality(i, 1);
+                                WrappedItems[i].UpdateItemQuality(1);
                             }
                         }
 
@@ -98,7 +94,7 @@ namespace csharpcore
                         {
                             if (Items[i].Quality < 50)
                             {
-                                UpdateItemQuality(i, 1);
+                                WrappedItems[i].UpdateItemQuality(1);
                             }
                         }
                     }
