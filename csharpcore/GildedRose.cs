@@ -15,7 +15,7 @@ namespace csharpcore
             for (var i = 0; i < Items.Count; i++)
             {
                 ItemQualityDecrement(i);
-                Item[i].ItemSellInDecrement();
+                ItemSellInDecrement(i);
                 ExpiredItemUpdate(i);
             }
         }
@@ -51,6 +51,13 @@ namespace csharpcore
             }
         }
 
+        private void ItemSellInDecrement(int i)
+        {
+            if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
+            {
+                Items[i].SellIn = Items[i].SellIn - 1;
+            }
+        }
 
         private void ItemQualityDecrement(int i)
         {
