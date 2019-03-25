@@ -14,8 +14,8 @@ namespace csharpcore
         {
             for (var i = 0; i < Items.Count; i++)
             {
-                GeneralItemQualityDecrement(i);
-                GeneralItemSellInDecrement(i);
+                ItemQualityDecrement(i);
+                Item[i].ItemSellInDecrement();
                 ExpiredItemUpdate(i);
             }
         }
@@ -51,15 +51,8 @@ namespace csharpcore
             }
         }
 
-        private void GeneralItemSellInDecrement(int i)
-        {
-            if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
-            {
-                Items[i].SellIn = Items[i].SellIn - 1;
-            }
-        }
 
-        private void GeneralItemQualityDecrement(int i)
+        private void ItemQualityDecrement(int i)
         {
             if (Items[i].Name != "Aged Brie" && Items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
             {
