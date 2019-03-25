@@ -1,13 +1,17 @@
 ﻿using System.Collections.Generic;
-
+using System.Linq;
 namespace csharpcore
 {
     public class GildedRose
     {
         IList<Item> Items;
+        IList<ItemWrapper> WrappedItems;
         public GildedRose(IList<Item> Items)
         {
             this.Items = Items;
+            WrappedItems =
+                Items
+                    .Select(x=> new ItemWrapper(x) ).ToList();
         }
 
         public void UpdateQuality()
@@ -32,7 +36,7 @@ namespace csharpcore
                         {
                             if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
                             {
-                                UpdateItemQuality(i, -1);
+                                WrappedItems[i]._UpdateItemQuality(-1);
                             }
                         }
                     }
@@ -45,7 +49,7 @@ namespace csharpcore
                 {
                     if (Items[i].Quality < 50)
                     {
-                        UpdateItemQuality(i, 1);
+                        WrappedItems[i]._UpdateItemQuality(1);
                     }
                 }
             }
@@ -58,7 +62,10 @@ namespace csharpcore
                 Items[i].SellIn = Items[i].SellIn - 1;
             }
         }
-
+        public void UpdateItemQuality(int i, int changeVal)
+        {
+            Items[i].Quality = Items[i].Quality + changeVal;
+        }
         private void ItemQualityDecrement(int i)
         {
             if (Items[i].Name != "Aged Brie" && Items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
@@ -99,9 +106,5 @@ namespace csharpcore
             }
         }
 
-        private void UpdateItemQuality(int i, int changeVal)
-        {
-            Items[i].Quality = Items[i].Quality + changeVal;
-        }
     }
 }
