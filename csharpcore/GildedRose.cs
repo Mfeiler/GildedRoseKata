@@ -11,96 +11,105 @@ namespace csharpcore
             this.Items = Items;
             WrappedItems =
                 Items
-                    .Select(x=> new ItemWrapper(x) ).ToList();
+                    .Select(x => new ItemWrapper(x)).ToList();
         }
 
         public void UpdateQuality()
         {
             for (var i = 0; i < Items.Count; i++)
             {
-                ItemQualityDecrement(i);
-                ItemSellInDecrement(i);
-                ExpiredItemUpdate(i);
+                if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
+                {
+                    ItemQualityDecrement(i);
+
+                    ItemSellInDecrement(i);
+
+                    if (Items[i].SellIn < 0)
+                        ExpiredItemUpdate(i);
+                }
             }
         }
-
         private void ExpiredItemUpdate(int i)
         {
-            if (Items[i].SellIn < 0)
+            if (Items[i].Name != "Aged Brie")
             {
-                if (Items[i].Name != "Aged Brie")
+                updateNonBrieExpiredItem(i);
+            }
+            else
+            {
+                updateExpiredBrie(i);
+            }
+        }
+        private void updateExpiredBrie(int i)
+        {
+            if (Items[i].Quality < 50)
+            {
+                WrappedItems[i].UpdateItemQuality(1);
+            }
+        }
+        private void updateItemQualityGreaterThanZero(int i)
+        {
+            if (Items[i].Quality > 0)
+            {
+                WrappedItems[i].UpdateItemQuality(-1);
+            }
+        }
+        private void updateNonBrieExpiredItem(int i)
+        {
+            if (Items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
+            {
+                updateItemQualityGreaterThanZero(i);
+            }
+            else
+            {
+                Items[i].Quality = 0;
+            }
+        }
+        private void UpdateQualityNonExpiredRegularItem(int i)
+        {
+            if (Items[i].Quality > 0)
+            {
+                WrappedItems[i].UpdateItemQuality(-1);
+            }
+        }
+        private void UpdateQualityExceptionItems(int i )
+        {
+            if (Items[i].Quality < 50)
+            {
+                WrappedItems[i].UpdateItemQuality(1);
+                if (Items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
                 {
-                    if (Items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
+                    if (Items[i].SellIn < 11)
                     {
-                        if (Items[i].Quality > 0)
+                        if (Items[i].Quality < 50)
                         {
-                            if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
-                            {
-                                WrappedItems[i].UpdateItemQuality(-1);
-                            }
+                            WrappedItems[i].UpdateItemQuality(1);
                         }
                     }
-                    else
+                    if (Items[i].SellIn < 6)
                     {
-                        Items[i].Quality = 0;
-                    }
-                }
-                else
-                {
-                    if (Items[i].Quality < 50)
-                    {
-                        WrappedItems[i].UpdateItemQuality(1);
+                        if (Items[i].Quality < 50)
+                        {
+                            WrappedItems[i].UpdateItemQuality(1);
+                        }
                     }
                 }
             }
         }
-
         private void ItemSellInDecrement(int i)
         {
-            if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
-            {
-                Items[i].SellIn = Items[i].SellIn - 1;
-            }
+            Items[i].SellIn = Items[i].SellIn - 1;
         }
         private void ItemQualityDecrement(int i)
         {
             if (Items[i].Name != "Aged Brie" && Items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
             {
-                if (Items[i].Quality > 0)
-                {
-                    if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
-                    {
-                        WrappedItems[i].UpdateItemQuality(-1);
-                    }
-                }
+            UpdateQualityNonExpiredRegularItem(i);
             }
             else
             {
-                if (Items[i].Quality < 50)
-                {
-                    WrappedItems[i].UpdateItemQuality(1);
-
-                    if (Items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
-                    {
-                        if (Items[i].SellIn < 11)
-                        {
-                            if (Items[i].Quality < 50)
-                            {
-                                WrappedItems[i].UpdateItemQuality(1);
-                            }
-                        }
-
-                        if (Items[i].SellIn < 6)
-                        {
-                            if (Items[i].Quality < 50)
-                            {
-                                WrappedItems[i].UpdateItemQuality(1);
-                            }
-                        }
-                    }
-                }
+                UpdateQualityExceptionItems(i);
             }
         }
-
     }
 }
